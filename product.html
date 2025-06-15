@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Analyzer Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ff007f;       /* Vibrant Neon Pink */
+            --primary-light: #ff4da6; /* Softer Pink for Highlights */
+            --secondary: #8a2be2;     /* Deep Electric Purple */
+            --dark: #0d0d0d;         /* Deep Black */
+            --light: #1a1a1a;        /* Dark Gray for Contrast */
+            --success: #00c896;      /* Bright Teal Green */
+            --danger: #ff1744;       /* Bold Red */
+            --warning: #ff9f1c;      /* Deep Golden Yellow */
+            --info: #7f5af0;         /* Rich Blue-Purple */
+            --gray: #0a0a0a;         /* Dark Gray */
+            --white: #000000;        /* Soft Off-White for Text */
+
+            --white: #0a0a0a; /* Rich Jet Black */
+
+
+
+
+
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+          color: #e0e0e0;  
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7ff;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .card {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),  
+            0 5px 15px rgba(255, 0, 255, 0.3); 
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        h1, h2, h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            color: var(--secondary);
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+        
+        .upload-area {
+            border: 2px dashed var(--primary);
+            border-radius: 12px;
+           padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .upload-area:hover {
+            background-color: rgba(67, 97, 238, 0.05);
+            border-color: var(--secondary);
+        }
+        
+        .upload-area.active {
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+        
+        .upload-area i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        #preview {
+            max-width: 100%;
+            max-height: 300px;
+            display: none;
+            margin: 1.5rem auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            object-fit: contain;
+            background: #f8f9fa;
+            padding: 1rem;
+        }
+        
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .input-group input[type="text"] {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid#e0e0e0;
+            color: black;
+            font-weight: bold;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .input-group input[type="text"]:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            outline: none;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            margin-right: 0.8rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .btn i {
+            margin-right: 0.5rem;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        .btn-outline:hover {
+    color: white !important; 
+}
+
+.btn-outline:hover i {
+    color: white !important;  
+}
+        
+        .btn-danger {
+            background-color: var(--danger);
+        }
+        
+        .btn-danger:hover {
+            background-color: #d1144a;
+        }
+        
+        .btn-success {
+            background-color: var(--secondary);
+        }
+        
+        .btn-success:hover {
+            background-color: #3ab0d6;
+        }
+        
+        #result {
+            display: none;
+            margin-top: 2rem;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+         @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        } 
+        
+        .loader {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .loader-spinner {
+            border: 5px solid rgba(67, 97, 238, 0.1);
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .product-info {
+            margin-top: 1.5rem;
+        }
+        
+        .product-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .product-title {
+            flex: 1;
+            color: white;
+        }
+        
+        .product-rating {
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .product-rating i {
+            margin-right: 0.3rem;
+        }
+        
+        .price-comparison {
+            margin-top: 2rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: white;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .price-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .price-platform {
+            display: flex;
+            align-items: center;
+        }
+        
+        .price-platform img {
+            width: 24px;
+            height: 24px;
+            margin-right: 0.8rem;
+            object-fit: contain;
+        }
+        
+        .price-value {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .price-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            transition: color 0.3s;
+        }
+        
+        .price-link:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+        
+        .price-link i {
+            margin-left: 0.5rem;
+            font-size: 0.8rem;
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .feature-item {
+            background: rgba(67, 97, 238, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .feature-item i {
+            color: var(--primary);
+            margin-right: 0.8rem;
+            margin-top: 0.2rem;
+        }
+        
+        .reviews-section {
+            margin-top: 2rem;
+        }
+        
+        .reviews-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .review-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+        }
+        
+        .review-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .review-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 1rem;
+        }
+        
+        .review-user {
+            flex: 1;
+        }
+        
+        .review-name {
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+        
+        .review-date {
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+        
+        .review-rating {
+            color: var(--warning);
+        }
+        
+        .review-content {
+            color: var(--dark);
+        }
+        
+        .star-rating {
+            font-size: 1.5rem;
+            margin: 1.5rem 0;
+            display: inline-flex;
+        }
+        
+        .star-rating span {
+            cursor: pointer;
+            margin: 0 0.2rem;
+            color: #ddd;
+            transition: all 0.2s;
+        }
+        
+        .star-rating span.active {
+            color: var(--warning);
+            transform: scale(1.2);
+        }
+        
+        .feedback-form {
+            margin-top: 1.5rem;
+        }
+        
+        .feedback-form textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            min-height: 120px;
+            margin-bottom: 1rem;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+        
+        .feedback-form textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            outline: none;
+        }
+        
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            display: none;
+            animation: fadeInDown 0.5s ease-out;
+        }
+        
+        .alert-success {
+            background-color: rgba(76, 201, 240, 0.1);
+            border: 1px solid var(--success);
+            color: var(--success);
+        }
+        
+        .alert-danger {
+            background-color: rgba(247, 37, 133, 0.1);
+            border: 1px solid var(--danger);
+            color: var(--danger);
+        }
+        .fa-solid, .fas {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: var(--primary);
+
+}
+        
+
+        .file-info {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-top: 1rem;
+        }
+        
+        .platform-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 0.8rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 0.8rem;
+            }
+            
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .price-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .price-value {
+                margin-top: 0.5rem;
+                align-self: flex-end;
+            }
+        }
+
+        .review-name {
+    font-weight: 600;
+    font-size:1.2rem;
+    margin-bottom: 0.2rem;
+    color:var(--secondary);
+}
+.product-rating i {
+    color: white;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+}
+.p strong {
+    color: white; 
+}
+
+      
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="animate__animated animate__fadeInDown">Product Analyzer</h1>
+        <p class="animate__animated animate__fadeIn animate__delay-1s" style="text-align: center;">Upload an image or enter product name to get detailed analysis and price comparison</p>
+        
+        <div class="alert" id="alert"></div>
+        
+        <div class="card animate__animated animate__fadeIn animate__delay-1s">
+            <div class="upload-area" id="uploadArea">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p class="drag-text">Drag & drop product image here or click to browse</p>
+                <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                <button class="btn btn-outline">
+                    <i class="fas fa-folder-open" ></i> Browse Files
+                </button>
+                <p class="file-info">Supported formats: JPG, PNG, WEBP (Max 5MB)</p>
+            </div>
+            
+            <img id="preview" class="animate__animated animate__fadeIn" alt="Product preview">
+            
+            <div class="input-group">
+                <input type="text" id="textInput" placeholder="Or enter product name manually...">
+            </div>
+            
+            <div>
+                <button class="btn btn-outline" onclick="speakProductName()">
+                    <i class="fas fa-volume-up"></i> Speak Name
+                </button>
+                <button class="btn" onclick="analyzeProduct()" id="analyzeBtn">
+                    <i class="fas fa-search"></i> Analyze Product
+                </button>
+                <button class="btn btn-danger" onclick="resetForm()" id="resetBtn" style="display: none;">
+                    <i class="fas fa-redo"></i> Reset
+                </button>
+            </div>
+        </div>
+        
+        <div class="card" id="result"></div>
+        <div class="card" id="feedback" style="display: none;"></div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@1.0.0"></script>
+
+    <script>
+      
+        let currentProduct = null;
+        let selectedRating = 0;
+        
+        
+        const imageUpload = document.getElementById('imageUpload');
+        const preview = document.getElementById('preview');
+        const textInput = document.getElementById('textInput');
+        const uploadArea = document.getElementById('uploadArea');
+        const alertBox = document.getElementById('alert');
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const resultDiv = document.getElementById('result');
+        const feedbackDiv = document.getElementById('feedback');
+        
+   
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('active');
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('active');
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('active');
+            
+            if (e.dataTransfer.files.length) {
+                imageUpload.files = e.dataTransfer.files;
+                handleImageUpload();
+            }
+        });
+        
+        
+        imageUpload.addEventListener('change', handleImageUpload);
+        uploadArea.addEventListener('click', () => imageUpload.click());
+        
+        function handleImageUpload() {
+            const file = imageUpload.files[0];
+            if (file) {
+              
+                const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
+                if (!validTypes.includes(file.type)) {
+                    showAlert('Please upload a valid image file (JPEG, PNG, or WEBP)', 'danger');
+                    return;
+                }
+                
+                if (file.size > 5 * 1024 * 1024) { 
+                    showAlert('Image size should be less than 5MB', 'danger');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = "block";
+                    preview.classList.add("animate__fadeIn");
+                    
+                   
+                    const cleanName = file.name.replace(/\.[^/.]+$/, "")
+                        .replace(/[^a-zA-Z0-9 ]/g, '')
+                        .trim();
+                    
+             
+                    if (!textInput.value.trim()) {
+                        textInput.value = cleanName;
+                    }
+                    
+                   
+                    resetBtn.style.display = 'inline-flex';
+                };
+                
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        function showAlert(message, type = 'success') {
+            alertBox.textContent = message;
+            alertBox.className = `alert alert-${type}`;
+            alertBox.style.display = "block";
+            alertBox.classList.add("animate__fadeInDown");
+            
+            setTimeout(() => {
+                alertBox.classList.remove("animate__fadeInDown");
+                alertBox.classList.add("animate__fadeOut");
+                setTimeout(() => {
+                    alertBox.style.display = "none";
+                    alertBox.classList.remove("animate__fadeOut");
+                }, 500);
+            }, 3000);
+        }
+        
+        function speakProductName() {
+            if (textInput.value.trim() === "") {
+                showAlert("Please enter a product name first!", 'danger');
+                return;
+            }
+            
+            const utterance = new SpeechSynthesisUtterance(textInput.value);
+            window.speechSynthesis.speak(utterance);
+        }
+        
+        function resetForm() {
+            preview.src = "";
+            preview.style.display = "none";
+            imageUpload.value = "";
+            textInput.value = "";
+            resultDiv.style.display = "none";
+            feedbackDiv.style.display = "none";
+            resetBtn.style.display = "none";
+            currentProduct = null;
+            selectedRating = 0;
+        }
+        
+        function showFeedbackForm() {
+            feedbackDiv.style.display = "block";
+            feedbackDiv.innerHTML = `
+                <div class="animate__animated animate__fadeIn">
+                    <h3><i class="fas fa-comment-alt"></i> Rate this Analysis</h3>
+               <p id="analysisText">How helpful was this product analysis?</p>
+
+<style>
+    #analysisText {
+        color: white; /* Default white text */
+    }
+</style>
+
+                    
+                    <div class="star-rating">
+                        <span onclick="setRating(1)">☆</span>
+                        <span onclick="setRating(2)">☆</span>
+                        <span onclick="setRating(3)">☆</span>
+                        <span onclick="setRating(4)">☆</span>
+                        <span onclick="setRating(5)">☆</span>
+                    </div>
+                    
+                    <div class="feedback-form">
+                        <textarea id="feedbackText" placeholder="Optional: Provide additional feedback..."></textarea>
+                        <button class="btn btn-success" onclick="submitFeedback()">
+                            <i class="fas fa-paper-plane" style="color:white;"></i> Submit Feedback
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+           
+            // feedbackDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function setRating(rating) {
+            selectedRating = rating;
+            const stars = document.querySelectorAll('.star-rating span');
+            
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.textContent = '★';
+                    star.classList.add('active');
+                } else {
+                    star.textContent = '☆';
+                    star.classList.remove('active');
+                }
+            });
+        }
+        
+        function submitFeedback() {
+            const feedbackText = document.getElementById("feedbackText").value;
+            
+            if (selectedRating === 0) {
+                showAlert("Please select a rating before submitting!", 'danger');
+                return;
+            }
+            
+          
+            console.log("Feedback submitted:", {
+                rating: selectedRating,
+                comment: feedbackText,
+                product: currentProduct ? currentProduct.name : "Unknown"
+            });
+            
+            showAlert("Thank you for your feedback! We appreciate your input.", 'success');
+            
+            
+            feedbackDiv.style.display = "none";
+            selectedRating = 0;
+        }
+
+        async function analyzeProduct() {
+            let query = textInput.value.trim();
+            const hasImage = preview.style.display === "block";
+            
+            if (!query && !hasImage) {
+                showAlert("Please enter text or upload an image!", 'danger');
+                return;
+            }
+            
+           
+            analyzeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
+            analyzeBtn.disabled = true;
+            
+            resultDiv.style.display = "block";
+            resultDiv.innerHTML = `
+                <div class="loader">
+                    <div class="loader-spinner"></div>
+                    <p>Analyzing product details...</p>
+                    <p class="file-info">This may take a few moments</p>
+                </div>
+            `;
+            
+            try {
+                let detectedName = query;
+                
+                if (hasImage) {
+                    
+                    const model = await mobilenet.load();
+                    const predictions = await model.classify(preview);
+                    detectedName = predictions[0].className.split(',')[0]; 
+                    
+                    
+                    detectedName = detectedName.replace(/\(.*?\)/g, '')
+                                            .replace(/[^a-zA-Z0-9 ]/g, '')
+                                            .trim();
+                    
+                    
+                    if (!query) {
+                        textInput.value = detectedName;
+                    }
+                }
+                
+                
+                const searchQuery = query || detectedName;
+                currentProduct = await fetchMockProductData(searchQuery);
+                displayProductData(currentProduct);
+                
+             
+                setTimeout(showFeedbackForm, 1000);
+                
+            } catch (error) {
+                console.error("Analysis error:", error);
+                resultDiv.innerHTML = `
+                    <div style="color: var(--danger); text-align: center; padding: 2rem;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                        <h3>Error analyzing product</h3>
+                        <p>${error.message || "Please try again with a different image or product name"}</p>
+                    </div>
+                `;
+            } finally {
+                analyzeBtn.innerHTML = '<i class="fas fa-search"></i> Analyze Product';
+                analyzeBtn.disabled = false;
+            }
+        }
+        
+        function getCategoryAndPriceRange(productName) {
+           
+            const lowerName = productName.toLowerCase();
+        
+            const categories = [
+                {
+                    keywords: ['laptop', 'notebook', 'ultrabook', 'chromebook'],
+                    priceRange: [35000, 65000],
+                    brands: ['Dell', 'HP', 'Lenovo', 'Asus', 'Acer']
+                },
+                {
+                    keywords: ['mobile', 'phone', 'smartphone', 'android'],
+                    priceRange: [7500, 25000],
+                    brands: ['Samsung', 'Redmi', 'Oppo', 'Vivo', 'Realme']
+                },
+                {
+                    keywords: ['iphone','apple','macbook'],
+                    priceRange: [45000, 95000],
+                    brands: ['Apple']
+                },
+                {
+                    keywords: ['television', 'tv'],
+                    priceRange: [15000, 65000],
+                    brands: ['Sony', 'Samsung', 'LG', 'Mi', 'OnePlus']
+                },
+                {
+                    keywords: ['fridge', 'refrigerator'],
+                    priceRange: [18000, 55000],
+                    brands: ['LG', 'Samsung', 'Whirlpool', 'Haier', 'Godrej']
+                },
+                {
+                    keywords: ['washing machine', 'washing'],
+                    priceRange: [12000, 40000],
+                    brands: ['LG', 'Samsung', 'Whirlpool', 'Bosch', 'IFB']
+                },
+                {
+                    keywords: ['dress', 'shirt', 't-shirt', 'jeans', 'pants', 'top', 'kurta', 'saree', 'skirt'],
+                    priceRange: [300, 1000],
+                    brands: ['Nike', 'Adidas', 'Puma', 'Zara', 'H&M']
+                },
+                {
+                    keywords: ['watch', 'smartwatch', 'wristwatch'],
+                    priceRange: [1000, 2500],
+                    brands: ['Titan', 'Fastrack', 'Casio', 'Fossil', 'Noise']
+                },
+                {
+                    keywords: ['headphone', 'earphone', 'earbud', 'airpod'],
+                    priceRange: [500, 1500],
+                    brands: ['Boat', 'JBL', 'Sony', ]
+                },
+                {
+                    keywords: ['camera'],
+                    priceRange: [45000, 98000],
+                    brands: ['Canon', 'Nikon', 'Gopro',]
+                }
+            ];
+            
+            
+            const defaultCategory = {
+                name: 'Other',
+                priceRange: [500, 2000],
+                brands: ['Generic', 'Unbranded', 'Local']
+            };
+            
+          
+            for (const category of categories) {
+                for (const keyword of category.keywords) {
+                    if (lowerName.includes(keyword)) {
+                        return {
+                            name: category.keywords[0].charAt(0).toUpperCase() + category.keywords[0].slice(1),
+                            priceRange: category.priceRange,
+                            brands: category.brands
+                        };
+                    }
+                }
+            }
+            
+            return defaultCategory;
+        }
+        
+        async function fetchMockProductData(productName) {
+           
+            const { name: category, priceRange, brands } = getCategoryAndPriceRange(productName);
+            
+        
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            
+         
+            const selectedBrand = brands[Math.floor(Math.random() * brands.length)];
+            
+            const features = [
+                "High quality materials", 
+                // "Long battery life", 
+                // "Water resistant", 
+                // "Wireless connectivity",
+                "Eco-friendly",
+                "User-friendly",
+                "Stylish",
+                "Ergonomic design",
+                "Energy efficient",
+                "Portable",
+                "Multi-functional",
+                "Durable construction",
+                "Sleek modern design",
+                "Easy to use",
+                "Advanced features"
+            ];
+            
+           
+            const selectedFeatures = [];
+            const numFeatures = Math.floor(Math.random() * 3) + 3;
+            for (let i = 0; i < numFeatures; i++) {
+                const randomIndex = Math.floor(Math.random() * features.length);
+                if (!selectedFeatures.includes(features[randomIndex])) {
+                    selectedFeatures.push(features[randomIndex]);
+                }
+            }
+            
+            
+            const minPrice = priceRange[0];
+            const maxPrice = priceRange[1];
+            const priceRangeSize = maxPrice - minPrice;
+            
+            
+            const basePrice = Math.floor(minPrice + (priceRangeSize * 0.5) + Math.random() * (priceRangeSize * 0.5));
+            
+            
+            const amazonDiscount = Math.random() * 0.2 + 0.1; 
+            const amazonPrice = Math.floor(basePrice * (1 - amazonDiscount));
+            
+         
+            const flipkartDiscount = Math.random() * 0.15 + 0.1; 
+            const flipkartPrice = Math.floor(basePrice * (1 - flipkartDiscount));
+            
+           
+            const googleDiscount = Math.random() * 0.1; 
+            const googlePrice = Math.floor(basePrice * (1 - googleDiscount));
+            
+   
+            const searchQuery = encodeURIComponent(`${selectedBrand} ${productName}`.trim());
+            
+          
+            const reviews = generateMockReviews(productName);
+            
+            return {
+                name: `${selectedBrand} ${productName}`,
+                category: category,
+                features: selectedFeatures,
+                prices: [
+                    { 
+                        platform: "Amazon", 
+                        price: amazonPrice, 
+                        url: `https://www.amazon.in/s?k=${searchQuery}&ref=nb_sb_noss`,
+                        icon: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg"
+                    },
+                    {
+                       platform: "Flipkart",
+                         price: flipkartPrice,
+                         url: `https://www.flipkart.com/search?q=${searchQuery}&otracker=search&otracker1=search`,
+                         icon: "https://img.icons8.com/color/48/flipkart.png"
+                      }
+                    ,
+                    { 
+                        platform: "Google Shopping", 
+                        price: googlePrice, 
+                        url: `https://www.google.com/search?tbm=shop&q=${searchQuery}`,
+                        icon: "https://www.gstatic.com/images/branding/product/1x/googleg_48dp.png"
+                    }
+                ],
+                rating: (Math.random() * 2 + 3).toFixed(1), 
+                reviews: reviews
+            };
+        }
+        
+        function generateMockReviews(productName) {
+            const reviews = [];
+            const reviewCount = Math.floor(Math.random() * 3) + 3; 
+            
+            const users = [
+                { name: "Rahul Sharma", avatar: "RS" },
+                { name: "Priya Patel", avatar: "PP" },
+                { name: "Amit Singh", avatar: "AS" },
+                { name: "Neha Gupta", avatar: "NG" },
+                { name: "Vikram Joshi", avatar: "VJ" }
+            ];
+            
+            const comments = [
+                `This ${productName.split(' ')[0]} is amazing! Works perfectly and looks great.`,
+                `Good product but could be better. The quality is decent for the price.`,
+                `Absolutely love it! Exceeded my expectations in every way.`,
+                `Not what I expected. The product doesn't match the description.`,
+                `Great value for money. Would definitely recommend to others.`,
+                `Average product. Does the job but nothing special.`,
+                `Very satisfied with my purchase. Fast delivery and good packaging.`,
+                `Poor quality. Stopped working after a few days. Would not recommend.`
+            ];
+            
+            const dates = [
+                "2 days ago",
+                "1 week ago",
+                "2 weeks ago",
+                "1 month ago",
+                "3 months ago"
+            ];
+            
+            for (let i = 0; i < reviewCount; i++) {
+                const user = users[Math.floor(Math.random() * users.length)];
+                const rating = Math.floor(Math.random() * 2) + 4; // 4-5 stars
+                
+                reviews.push({
+                    user: user.name,
+                    avatar: user.avatar,
+                    rating: rating,
+                    comment: comments[Math.floor(Math.random() * comments.length)],
+                    date: dates[Math.floor(Math.random() * dates.length)]
+                });
+            }
+            
+            return reviews;
+        }
+        
+        function displayProductData(product) {
+            const resultDiv = document.getElementById('result');
+            
+            
+            let html = `
+                <div class="animate__animated animate__fadeIn product-info">
+                    <div class="product-header">
+                        <div class="product-title">
+                            <h2>${product.name}</h2>
+                           <p>
+    <strong style="color: white;">Category:</strong> 
+    <span class="product-category">${product.category}</span>
+</p>
+
+                        </div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i> ${product.rating}/5
+                        </div>
+                    </div>
+                    
+                    <h3><i class="fas fa-bolt"></i> Key Features</h3>
+                    <div class="feature-list">
+            `;
+            
+          
+            product.features.forEach(feature => {
+                html += `
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>${feature}</div>
+                    </div>
+                `;
+            });
+            
+            html += `
+                    </div>
+                    
+                    <div class="price-comparison" style="color:white">
+                        <h3><i class="fas fa-tags"></i> Price Comparison</h3>
+            `;
+            
+          
+            product.prices.forEach(price => {
+                html += `
+                    <div class="price-item">
+                        <div class="price-platform">
+                            <img src="${price.icon}" alt="${price.platform}" class="platform-icon">
+                            <a href="${price.url}" target="_blank" class="price-link">
+                                View on ${price.platform}
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                        <div class="price-value">₹${price.price.toLocaleString()}</div>
+                    </div>
+                `;
+            });
+            
+          
+            html += `
+                    </div>
+                    
+                    <div class="reviews-section">
+                        <div class="reviews-header">
+                            <h3><i class="fas fa-comments"></i> Customer Reviews</h3>
+                        </div>
+            `;
+            
+            // Add reviews
+            product.reviews.forEach(review => {
+                html += `
+                    <div class="review-item">
+                        <div class="review-header">
+                            <div class="review-avatar">${review.avatar}</div>
+                            <div class="review-user">
+                                <div class="review-name">${review.user}</div>
+                                <div class="review-date">${review.date}</div>
+                            </div>
+                            <div class="review-rating">
+                                ${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}
+                            </div>
+                        </div>
+                        <div class="review-content">
+                            <p>${review.comment}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += `
+                    </div>
+                </div>
+            `;
+            
+            resultDiv.innerHTML = html;
+        }
+    </script>
+</body>
+</html>
